@@ -1,3 +1,4 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ntp/ntp.dart';
@@ -368,18 +369,32 @@ class ShowListView extends StatelessWidget {
 
 // snackBar을 보여주는 함수
 void showSnackBar(BuildContext context) {
-  SnackBar snackbar = SnackBar(
-    content: Text('빈 값 입니다.'),
-    backgroundColor: Colors.black,
-    duration: Duration(milliseconds: 4000), // 4초
-    behavior: SnackBarBehavior.floating,
-    action: SnackBarAction(
-      label: "",
-      onPressed: () {},
-      textColor: Colors.white10,
-    ),
-  );
-  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+  showFlash(
+      context: context,
+      duration: Duration(seconds: 4),
+      builder: (context, controller) {
+        return Flash.bar(
+            controller: controller,
+            position: FlashPosition.bottom,
+            child: FlashBar(content: Text('빈 칸 입니다.')));
+      });
+
+  // 그냥 snackBar하면 AlertDialog 뒤에 묻히게 된다.
+  // AlertDialog가 상위, snackBar는 하위 계층이기 떄문이다. (Widget Tree에 의해 근거)
+  // 따라서 snackBar는 AlertDialog에 의해 가려지는 느낌을 받는 것이다.
+
+  // SnackBar snackbar = SnackBar(
+  //   content: Text('빈 값 입니다.'),
+  //   backgroundColor: Colors.black,
+  //   duration: Duration(milliseconds: 4000), // 4초
+  //   behavior: SnackBarBehavior.floating,
+  //   action: SnackBarAction(
+  //     label: "",
+  //     onPressed: () {},
+  //     textColor: Colors.white10,
+  //   ),
+  // );
+  // ScaffoldMessenger.of(context).showSnackBar(snackbar);
 }
 
 // ElevatedButton을 관리하는 widget

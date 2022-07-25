@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.0.3
   shared_preferences: ^2.0.15
   ntp: ^2.0.0
+  flash: ^2.0.3+3
 
 dev_dependencies:
   flutter_test:
